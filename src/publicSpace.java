@@ -13,6 +13,9 @@ public class publicSpace extends Venue {
         //then
         venue = "University cafe";
         maxCapicty = 24;
+        System.out.println(venue);
+        System.out.println(maxCapicty);
+
     }
 
     public void typeThree(){
@@ -20,6 +23,8 @@ public class publicSpace extends Venue {
         //then
         venue = "Student mall";
         maxCapicty = 242;
+        System.out.println(venue);
+        System.out.println(maxCapicty);
     }
 
 
