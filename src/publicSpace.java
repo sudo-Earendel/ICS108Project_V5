@@ -11,7 +11,7 @@ public class publicSpace extends Venue {
     public void typeTwo(){
         //here if statements if it's a social event
         //then
-        venue = "Univercity cafe";
+        venue = "University cafe";
         maxCapicty = 24;
     }
 
