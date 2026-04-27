@@ -5,7 +5,7 @@ public class AcademicDepartment {
     }
     public void sponsor2(){
         String department = "Mathematics";
-        String person = "Bader Al-Farraj";
+        String person = "Ahmed Alkhardawi";
     }
     public void sponsor3(){
         String department = "Physics";
@@ -18,7 +18,7 @@ public class AcademicDepartment {
     }
     public void sponsor5(){
         String department = "Chimestry";
-        String person = "Hasan Al-rumaih";
+        String person = "Hasan Alrumaih";
     }
     public void sponsor6(){
         String department = "Islamic and Arabic Studies";

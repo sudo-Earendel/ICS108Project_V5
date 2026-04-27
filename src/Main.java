@@ -26,7 +26,6 @@ public class Main {
                 capacity = input.nextInt();
                 //if statement for the maxCapacity in the specifc venue
 
-
             } catch (Exception e) {
 
                 System.out.print("Please Enter a vaild type");
