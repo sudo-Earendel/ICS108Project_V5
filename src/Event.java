@@ -69,7 +69,7 @@ public class Event {
                     sprt.buildingThree();
                 }
                 else{
-                    throw new Exception("You should choose between 1, 2 and 3 as a building");
+                    throw new Exception("You should choose between 1, 2 and 3 as a building.");
                 }
             }
             catch(Exception except){
