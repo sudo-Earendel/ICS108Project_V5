@@ -1,19 +1,24 @@
 import java.util.Scanner;
 public class Event {
+    // I do not know what is this
     public String[] theEventType(){
 
 
     }
+    // This is the method that will give the information of the venue
     public void venueSelection(String eventType){
         Scanner scnr = new Scanner(System.in);
         publicSpace space = new publicSpace();
         lectureHall lect = new lectureHall();
         SportArea sprt = new SportArea();
+        // This will give the information of religious evet venue
         if(eventType.equals("Religious")){
             space.typeOne();
         }
+        // This will give the information of Social event venues
         else if(eventType.equals("Social")){
             System.out.println("Choose between University cafe and Student mall");
+            // if the user typed something other than the choices, an error will be thrown
             try {
                 String place = scnr.nextLine();
                 if((!place.equals("Student mall"))&&(!place.equals("University cafe"))) {
@@ -32,9 +37,11 @@ public class Event {
 
             }
         }
+        // This will give the information of Sports event venues
         else if(eventType.equals("Sports")){
             System.out.println("Choose between building 1, building 2 and building 3");
             System.out.println("Choose a number");
+            // if the user typed something other than the choices, an error will be thrown
             try{
                 int building = scnr.nextInt();
                 if(building == 1){
@@ -54,9 +61,11 @@ public class Event {
                 System.out.println(except.getMessage());
             }
         }
-        else{
+        // This will give the information of Academic event venues
+        else if(eventType.equals("Academic")) {
             System.out.println("Choose between building 1, building 2 and building 3");
             System.out.println("Choose a number");
+            // if the user entered something other than the choice, an error will be thrown
             try{
                 int building = scnr.nextInt();
                 if(building == 1){
@@ -69,7 +78,7 @@ public class Event {
                     sprt.buildingThree();
                 }
                 else{
-                    throw new Exception("You should choose between 1, 2 and 3 as a building");
+                    throw new Exception("You should choose between 1, 2 and 3 as a building.");
                 }
             }
             catch(Exception except){

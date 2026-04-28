@@ -1,4 +1,5 @@
 public class AcademicDepartment {
+    // These are the sponsors. Each sponsor has special information
     public String sponsor1(){
         String department = "Information and Computer Science";
         String person = "Ovais Khan";
