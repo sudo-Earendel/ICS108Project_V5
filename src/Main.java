@@ -13,19 +13,18 @@ public class Main {
         //while loop so the program continue
         while(endProgram) {
             System.out.print("Enter the Event type");
-            System.out.print(event.types);
+            System.out.print("Religious, Social, Sports, Academic, Other.");
             // try and catch block to prevent dumb error
             // Handle ALL dumb input
             try {
 
-                eventType = input.nextLine();
+                eventType = input.next();
                 System.out.print("Select the desired venue");
                 event.venueSelection(eventType);
                 //change the things in the print
                 System.out.print("Please enter the predected amount of comeers to the Event");
                 capacity = input.nextInt();
                 //if statement for the maxCapacity in the specifc venue
-
 
             } catch (Exception e) {
 
