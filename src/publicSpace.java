@@ -6,6 +6,7 @@ public class publicSpace extends Venue {
         //then
         venue = "Cambus mosque";
         maxCapicty = 100;
+        System.out.println("The maximum capacity for Campus mosque is "+ maxCapicty);
     }
 
     public void typeTwo(){
@@ -13,6 +14,9 @@ public class publicSpace extends Venue {
         //then
         venue = "University cafe";
         maxCapicty = 24;
+
+        System.out.println("The maximum capacity for University cafe is " + maxCapicty);
+
     }
 
     public void typeThree(){
@@ -20,6 +24,7 @@ public class publicSpace extends Venue {
         //then
         venue = "Student mall";
         maxCapicty = 242;
+        System.out.println("The maximum capacity for Student mall is " + maxCapicty);
     }
 
 
