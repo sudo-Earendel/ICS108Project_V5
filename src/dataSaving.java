@@ -1,19 +1,55 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.ArrayList;
 public class dataSaving{
     protected HashMap<String, String> saving = new HashMap<>();
-
-    public void saveOne(){
+    protected ArrayList<String> names = new ArrayList<String>();
+    protected ArrayList<String> types = new ArrayList<String>();
+    protected ArrayList<String> venues = new ArrayList<String>();
+    protected ArrayList<String> startDates = new ArrayList<>();
+    protected ArrayList<String> endDates = new ArrayList<>();
+    protected ArrayList<String> startTimes = new ArrayList<>();
+    protected ArrayList<String> endTimes = new ArrayList<>();
+    // This method will save the data
+    public void savings(String name,String eventType, String venue, int capacity,String startDate, String endDate, String startTime, String endTime){
+        names.add(name);
+        types.add(eventType);
+        venues.add(venue);
+        startDates.add(startDate);
+        endDates.add(endDate);
+        startTimes.add(startTime);
+        endTimes.add(endTime);
 
     }
-    public void saveTwo(){
+    //This method will show all events datas
+    public void showInfo(){
 
+        for(int i = 0; i<names.size();i++){
+            System.out.println("Name: " + names.get(i)+
+                    ". Event type: "+types.get(i)+". Venue: " + venues.get(i) +
+                    ".\n Date: from" + startDates.get(i)+" at "+startTimes.get(i)+
+                    "To "+endDates.get(i)+" at "+endTimes.get(i));
+        }
     }
-    public void saveThree(){
-
-    }
-    public void saveFour(){
+    //This method will delete desired event
+    public boolean delete(String name){
+        timecheck check = new timecheck();
+        for(int i = 0; i<names.size(); i++){
+            if(names.get(i).equals(name)){
+                // to delete data from timecheck class
+                check.delete(name);
+                names.remove(i);
+                types.remove(i);
+                venues.remove(i);
+                startDates.remove(i);
+                endTimes.remove(i);
+                startTimes.remove(i);
+                endTimes.remove(i);
+                System.out.println("The event has been deleted");
+                return true;
+            }
+        }
+        return false;
 
     }
 
