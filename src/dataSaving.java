@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ArrayList;
 public class dataSaving{
-    protected HashMap<String, String> saving = new HashMap<>();
     protected ArrayList<String> names = new ArrayList<String>();
     protected ArrayList<String> types = new ArrayList<String>();
-    protected ArrayList<String> venues = new ArrayList<String>();
+    protected ArrayList<String> venues = new ArrayList<>();
+    protected ArrayList<Integer> capacities = new ArrayList<>();
     protected ArrayList<String> startDates = new ArrayList<>();
     protected ArrayList<String> endDates = new ArrayList<>();
     protected ArrayList<String> startTimes = new ArrayList<>();
@@ -15,6 +15,7 @@ public class dataSaving{
         names.add(name);
         types.add(eventType);
         venues.add(venue);
+        capacities.add(capacity);
         startDates.add(startDate);
         endDates.add(endDate);
         startTimes.add(startTime);
@@ -32,15 +33,15 @@ public class dataSaving{
         }
     }
     //This method will delete desired event
-    public boolean delete(String name){
-        timecheck check = new timecheck();
+    public boolean delete(String name, timecheck timeCheck){
         for(int i = 0; i<names.size(); i++){
             if(names.get(i).equals(name)){
                 // to delete data from timecheck class
-                check.delete(name);
+                timeCheck.delete(name);
                 names.remove(i);
                 types.remove(i);
                 venues.remove(i);
+                capacities.remove(i);
                 startDates.remove(i);
                 endTimes.remove(i);
                 startTimes.remove(i);

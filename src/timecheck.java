@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.lang.NumberFormatException;
-public class timecheck extends Event {
+
+public class timecheck{
     // Lists to save info and check that there is no conflict
     protected ArrayList<String> names = new ArrayList<>();
     protected ArrayList<Integer> startDates = new ArrayList<>();
@@ -9,19 +9,26 @@ public class timecheck extends Event {
     protected ArrayList<Integer> startTimes = new ArrayList<>();
     protected ArrayList<Integer> endTimes = new ArrayList<>();
     protected ArrayList<String> venues = new ArrayList<>();
-    protected Scanner input = new Scanner(System.in);
-    protected SetInformation set = new SetInformation();
+    protected Scanner input;
+    protected SetInformation set;
     protected dataSaving data = new dataSaving();
     protected boolean valid = false;
+
+    public timecheck(Scanner input) {
+        this.input = input;
+        // SetInformation created here with shared Scanner
+        this.set = new SetInformation(input, this);
+    }
     // This method will check time conflict if the dates hava a day in common
     // The method is not ready yet, it checks the time correctly, but it does not know
     // if the day is in common or not
     // The method that will handle conflicts
-    public void checkConflict(String name, String eventType, String venue, int capacity, String startTime, String endTime){
-        String response = checkTime(venue, startTime, endTime);
+    public boolean checkConflict(String name, String eventType, String venue, int capacity,String startDate, String endDate, String startTime, String endTime){
+        String response = checkTime(venue, startTime, endTime, startTime, endTime);
         if(response.equals("valid")){
-            data.savings(name, eventType, venue, capacity, startTime, endTime);
+            data.savings(name, eventType, venue, capacity, startDate, endDate, startTime, endTime);
             System.out.print("the venue now is booked");
+            return true;
         }
         else if(response.equals("time")){
             System.out.println("Enter new starting time");
@@ -29,65 +36,76 @@ public class timecheck extends Event {
             System.out.println("Enter new ending time");
             endTime = set.Time();
             // Recursion to check everytime
-            checkConflict(name, eventType, venue, capacity, startTime, endTime);
+            return checkConflict(name, eventType, venue, capacity, startDate, endDate, startTime, endTime);
         }
         else if(response.equals("venue")){
             System.out.println("Enter a new venue");
             venue = set.choosingVenue(eventType);
             // Recursion to check everytime
-            checkConflict(name, eventType, venue, capacity, startTime, endTime);
+            return checkConflict(name, eventType, venue, capacity, startDate, endDate, startTime, endTime);
         }
         // The method needs to check the date also, So it should have an else if to change date
 
         // If the user typed anything other, the method (and recursion) will end.
         // The program will ask if the user wish to continue
         else{
-            return;
+            return false;
         }
     }
     // This method will check if there is a conflict in time with another time
-    public String checkTime(String venue, String start, String end){
-        int startHour = Integer.parseInt(start.substring(0,2));
-        int startMinute = Integer.parseInt(start.substring(3));
-        int endHour = Integer.parseInt(end.substring(0,2));
-        int endMinute = Integer.parseInt(end.substring(3));
+    public String checkTime(String venue, String startDate, String endDate, String startTime, String endTime){
+        int newStartTime = toMinutes(startTime);
+        int newEndTime = toMinutes(endTime);
+        int newStartDate = toDay(startDate);
+        int newEndDate = toDay(endDate);
+
         try {
-            int startTime = (startHour*60)+startMinute;
-            int endTime = (endHour*60)+endMinute;
-            for(int i = 0; i<venues.size(); i++){
-                if(venues.get(i).equals(venue)){
-                    if(startTimes.get(i)<endTime && endTimes.get(i) > startTime){
-                        int confStartMin = startTimes.get(i)%60;
-                        int confStartHour = (startTimes.get(i)-confStartMin)/60;
-                        int confEndMin = endTimes.get(i)%60;
-                        int confEndHour = (endTimes.get(i)-confEndMin)/60;
-                        System.out.println("You entered " + startHour + ":" + startMinute + " as a start time");
-                        System.out.println("And "+endHour+":"+endMinute +" as an end time");
-                        System.out.println("While there is an event start at " + confStartHour+":"+confStartMin);
-                        System.out.println("And end at "+confEndHour +":"+confEndMin);
-                        throw new Exception("There is a time conflict");
+            for (int i = 0; i < venues.size(); i++) {
+                if (venues.get(i).equals(venue)) {
+
+                    // First check if there is a day in common
+                    if (newStartDate <= endDates.get(i) && newEndDate >= startDates.get(i)) {
+
+                        // Then check if times conflict
+                        if (startTimes.get(i) < newEndTime && endTimes.get(i) > newStartTime) {
+                            // Convert back to HH:mm for display
+                            int confStartMin = startTimes.get(i) % 60;
+                            int confStartHour = (startTimes.get(i) - confStartMin) / 60;
+                            int confEndMin = endTimes.get(i) % 60;
+                            int confEndHour = (endTimes.get(i) - confEndMin) / 60;
+                            System.out.println("You entered " + startTime + " as a start time");
+                            System.out.println("And " + endTime + " as an end time");
+                            System.out.println("While there is an event starting at "
+                                    + confStartHour + ":" + confStartMin);
+                            System.out.println("And ending at "
+                                    + confEndHour + ":" + confEndMin);
+                            throw new Exception("There is a conflict!");
+                        }
                     }
                 }
             }
-            // If there is no time conflict, add info into lists to make it reserved(booked)
+            // No conflict found — save to lists
             venues.add(venue);
-            startTimes.add(startTime);
-            endTimes.add(endTime);
+            startDates.add(newStartDate);
+            endDates.add(newEndDate);
+            startTimes.add(newStartTime);
+            endTimes.add(newEndTime);
             return "valid";
-        }
-        catch(Exception except){
+        } catch (Exception except) {
             System.out.println(except.getMessage());
-            System.out.println("type \"time\" to change time or\"venue\" to change venue, or type \"q\" to quit");
-            // This value will help to know what is the info user want to change
+            System.out.println("Type \"time\" to change time");
+            System.out.println("Type \"venue\" to change venue");
+            System.out.println("Type \"q\" to quit");
             String change = input.next();
-            while(!valid) {
+            boolean valid = false;
+            while (!valid) {
                 try {
-                    if (((!change.equals("time")) && (!change.equals("venue"))) && (!change.equals("q"))) {
-                        throw new Exception("Plese enter \"time\", \"venue\" or \"q\"");
+                    if ((!change.equals("time")) && (!change.equals("venue"))
+                            && (!change.equals("q"))) {
+                        throw new Exception("Please enter \"time\", \"venue\" or \"q\"");
                     }
                     valid = true;
-                }
-                catch (Exception except2) {
+                } catch (Exception except2) {
                     System.out.println(except2.getMessage());
                     change = input.next();
                 }
@@ -115,6 +133,34 @@ public class timecheck extends Event {
             }
         }
         return name;
+    }
+
+    public boolean checkDate(String venue, String startDate, String endDate){
+        int start = toDay(startDate);
+        int end = toDay(endDate);
+        if (end<start){
+            System.out.println("Ending Date cannot start after starting date.");
+            return false;
+        }
+        return true;
+    }
+    // This method will return days number
+    public int toDay(String date){
+            int[] daysInMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+            int month = Integer.parseInt(date.substring(0, 2));
+            int day = Integer.parseInt(date.substring(3));
+            int total = 0;
+            // This loop to add all months days
+            for (int m = 1; m < month; m++) {
+                total += daysInMonth[m];
+            }
+            return total + day;
+        }
+    // This method will return minutes as a number
+    public int toMinutes(String time) {
+        int hour = Integer.parseInt(time.substring(0, 2));
+        int minute = Integer.parseInt(time.substring(3));
+        return hour * 60 + minute;
     }
     // This method will delete the event data reserved user want to remove
     public void delete(String name){

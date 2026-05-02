@@ -2,30 +2,40 @@
 public class publicSpace extends Venue {
     public String typeOne(){
         //here if-statement if the event is religious
-        //then
-        venue = "Cambus mosque";
-        maxCapicty = 100;
-        System.out.println("The maximum capacity for Campus mosque is "+ maxCapicty);
+        rooms.clear();
+        max.clear();
+        rooms.add("Campus Mosque");
+        max.put("Campus Mosque", 100);
+        venue = "Campus Mosque";
+        maxCapacity = getMaxCapacity();
+        showRooms();
         return venue;
     }
 
     public String typeTwo(){
-        //here if statements if it's a social event
-        //then
-        venue = "University cafe";
-        maxCapicty = 24;
+        rooms.clear();
+        max.clear();
 
-        System.out.println("The maximum capacity for University cafe is " + maxCapicty);
+        rooms.add("University Cafe");
+        max.put("University Cafe", 24);
+
+        venue = "University Cafe";
+        maxCapacity = getMaxCapacity();
+        showRooms();
         return venue;
 
     }
 
     public String typeThree(){
-        //here if statements if it's a social event
-        //then
-        venue = "Student mall";
-        maxCapicty = 242;
-        System.out.println("The maximum capacity for Student mall is " + maxCapicty);
+        rooms.clear();
+        max.clear();
+
+        rooms.add("Student Mall");
+        max.put("Student Mall", 242);
+
+        venue = "Student Mall";
+        maxCapacity = getMaxCapacity();
+        showRooms();
         return venue;
     }
 
