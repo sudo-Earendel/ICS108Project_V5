@@ -1,9 +1,10 @@
 
-public class lectureHall extends Venue{
+public class LectureHall extends Venue{
 
 
     //Building 22
     public String buildingOne(){
+        // since the rooms and max are shared in all subclasses, we need to clear them every time
         rooms.clear();
         max.clear();
 
@@ -25,6 +26,7 @@ public class lectureHall extends Venue{
 
     // Building 63
     public String buildingTwo(){
+        // since the rooms and max are shared in all subclasses, we need to clear them every time
         rooms.clear();
         max.clear();
 
@@ -45,6 +47,7 @@ public class lectureHall extends Venue{
     }
 
     public String buildingThree(){
+        // since the rooms and max are shared in all subclasses, we need to clear them every time
         rooms.clear();
         max.clear();
 

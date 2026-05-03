@@ -2,8 +2,8 @@ import java.util.Scanner;
 public class Event {
     // This is the method that will give the information of the venue
     Scanner input;
-    publicSpace space = new publicSpace();
-    lectureHall lect = new lectureHall();
+    PublicSpace space = new PublicSpace();
+    LectureHall lect = new LectureHall();
     SportArea sprt = new SportArea();
     // This variable will help to get maximum capacity
      Venue currentVenue;
@@ -11,7 +11,6 @@ public class Event {
     public Event(Scanner input){
         this.input = input;
     }
-    // syed here
     public String venueSelection(String eventType){
         String venue = "";
         boolean valid = false;

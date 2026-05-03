@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class timecheck{
+public class ConflictChecking {
     // Lists to save info and check that there is no conflict
     protected ArrayList<String> names = new ArrayList<>();
     protected ArrayList<Integer> startDates = new ArrayList<>();
@@ -11,16 +11,17 @@ public class timecheck{
     protected ArrayList<String> venues = new ArrayList<>();
     protected Scanner input;
     protected SetInformation set;
-    protected dataSaving data;
+    protected DataSaving data;
     protected boolean valid = false;
 
-    public timecheck(Scanner input, dataSaving data) {
+    public ConflictChecking(Scanner input, DataSaving data) {
         this.input = input;
         this.data = data;
         // SetInformation created here with shared Scanner
+        // AI helped us in this
         this.set = new SetInformation(input, this);
     }
-    // This method will check time conflict if the dates hava a day in common
+    // This method will check time conflict if the dates have a day in common
     // The method is not ready yet, it checks the time correctly, but it does not know
     // if the day is in common or not
     // The method that will handle conflicts
@@ -29,7 +30,7 @@ public class timecheck{
         if(response.equals("valid")){
             data.savings(name, eventType, venue, capacity, startDate, endDate, startTime, endTime, department, person);
             names.add(name);
-            System.out.print("the venue now is booked");
+            System.out.println("the venue now is booked");
             return true;
         }
         else if(response.equals("time")){

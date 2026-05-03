@@ -1,6 +1,8 @@
 //the class will be for any even that may occur in spaces like cafe , mosques , Student Mall etc...
-public class publicSpace extends Venue {
+public class PublicSpace extends Venue {
+
     public String typeOne(){
+        // since the rooms and max are shared in all subclasses, we need to clear them every time
         rooms.clear();
         max.clear();
         rooms.add("Campus Mosque");
@@ -12,6 +14,7 @@ public class publicSpace extends Venue {
     }
 
     public String typeTwo(){
+        // since the rooms and max are shared in all subclasses, we need to clear them every time
         rooms.clear();
         max.clear();
 
@@ -26,6 +29,7 @@ public class publicSpace extends Venue {
     }
 
     public String typeThree(){
+        // since the rooms and max are shared in all subclasses, we need to clear them every time
         rooms.clear();
         max.clear();
 

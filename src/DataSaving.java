@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class dataSaving{
+public class DataSaving {
     protected ArrayList<String> names = new ArrayList<String>();
     protected ArrayList<String> types = new ArrayList<String>();
     protected ArrayList<String> venues = new ArrayList<>();
@@ -37,11 +37,11 @@ public class dataSaving{
         }
     }
     //This method will delete desired event
-    public boolean delete(String name, timecheck timeCheck){
+    public boolean delete(String name, ConflictChecking check){
         for(int i = 0; i<names.size(); i++){
             if(names.get(i).equals(name)){
-                // to delete data from timecheck class
-                timeCheck.delete(name);
+                // to delete data from ConflictChecking class
+                check.delete(name);
                 names.remove(i);
                 types.remove(i);
                 venues.remove(i);

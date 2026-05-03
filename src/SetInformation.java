@@ -1,13 +1,13 @@
 import java.util.Scanner;
 public class SetInformation {
     protected Scanner input;
-    protected timecheck check;
-    // We made this as a field since many methods use it
+    protected ConflictChecking check;
+    // We made this as a field since many methods use it, but every time we will make it false
     protected boolean valid = false;
 
     // A constructor to assign variables
     // AI helped us in this
-    public SetInformation(Scanner input, timecheck check) {
+    public SetInformation(Scanner input, ConflictChecking check) {
         this.input = input;
         this.check = check;
     }
@@ -48,20 +48,20 @@ public class SetInformation {
         }
         return eventType;
     }
-    //This method needs some work. It should return the venue as a String
+    //This method will make the user choose the venue
     public String choosingVenue(String eventType){
         String venue;
         System.out.print("Select the desired venue");
         Event event = new Event(input);
+        // Object call since the venue will be chosen and handled there
         venue = event.venueSelection(eventType);
         return venue;
     }
 
-    // This method needs some work. It should return capacity as an int
+    // This method will check the capacity, with a maxCapacity argument
     public int capacityChecking(String venue, int maxCapacity){
         int capacity;
-        //change the things in the print
-        System.out.print("Please enter the predicted amount of comers to the Event");
+        System.out.println("Please enter the predicted amount of comers to the Event");
         capacity = input.nextInt();
         valid = false;
         // This loop will check if the capacity is ok
@@ -87,17 +87,21 @@ public class SetInformation {
         valid = false;
         while(!valid){
             try{
+                // The date should be 5 characters, or 4 if the user entered one single number for month
                 if((date.length()<4)||(date.length()>5)){
                     throw new Exception("Your date is not valid");
                 }
+                // If the month was a single number, the code will add zero
                 if(date.length() == 4){
                     date = "0" + date;
                 }
+                // The date should have / character
                 if (date.charAt(2)!=('/')){
                     throw new Exception("Your date is not valid");
                 }
                 int month = Integer.parseInt(date.substring(0,2));
                 int day = Integer.parseInt(date.substring(3));
+                // These if statements will check if the date was ok
                 if (month<1 || month>12){
                     throw new Exception("The month is not valid");
                 }
@@ -108,7 +112,7 @@ public class SetInformation {
                         }
                     }
                     else if(month == 2){
-                        if(day>29 || day<1){
+                        if(day>28 || day<1){
                             throw new Exception("The day is not valid");
                         }
                     }
@@ -148,17 +152,21 @@ public class SetInformation {
         valid = false;
         while(!valid) {
             try {
+                // Time length should be 5, or 4 if user entered one number for the hour
                 if((time.length()!=4) && (time.length()!=5)){
                     throw new Exception("Enter a valid time as 1:30");
                 }
+                // If the number of hour was a single number, the code will add a zero
                 if (time.length() == 4) {
                     time = "0" + time;
                 }
+                // The time should  be with :
                 if(time.charAt(2)!=':'){
                     throw new Exception("Enter a valid time. For example 1:30");
                 }
                 int Hour = Integer.parseInt(time.substring(0,2));
                 int Minute = Integer.parseInt(time.substring(3));
+                // These if statements will check if the time is ok
                 if((Hour < 0) || (Hour > 23)){
                     throw new Error("The hour is not valid");
                 }

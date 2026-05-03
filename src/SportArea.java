@@ -18,6 +18,7 @@ public class SportArea extends Venue {
 
         //building 11
         public String buildingTwo(){
+            // since the rooms and max are shared in all subclasses, we need to clear them every time
             rooms.clear();
             max.clear();
 
@@ -38,6 +39,7 @@ public class SportArea extends Venue {
         }
         // Playing Ground
         public String buildingThree(){
+            // since the rooms and max are shared in all subclasses, we need to clear them every time
             rooms.clear();
             max.clear();
 

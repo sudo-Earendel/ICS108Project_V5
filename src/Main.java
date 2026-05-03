@@ -5,14 +5,14 @@ public class Main {
         String eventType;
         int capacity;
         Scanner input = new Scanner(System.in);
-        dataSaving data = new dataSaving();
+        DataSaving data = new DataSaving();
         // The reason we put an argument is to make the input shared with all objects
         // and would prevent stealing from other classes with argument(input)
         // (AI helped us in this)
-        timecheck timeCheck = new timecheck(input, data);
+        ConflictChecking check = new ConflictChecking(input, data);
         // To prevent stealing inputs from other classes
         // (AI helped us in this)
-        SetInformation set = new SetInformation(input, timeCheck);
+        SetInformation set = new SetInformation(input, check);
         boolean endProgram = false;
         String orderNum;
         //String so the user can input the ( / ) or ( : )
@@ -53,7 +53,7 @@ public class Main {
                         startDate = set.Date();
                         System.out.println("Enter the ending date as 1/01");
                         endDate = set.Date();
-                        dateValid = timeCheck.checkDate(venue ,startDate, endDate);
+                        dateValid = check.checkDate(venue ,startDate, endDate);
                     }
                     System.out.println("Enter starting time as 1:05");
                     startTime = set.Time();
@@ -63,14 +63,14 @@ public class Main {
                     person = set.setPerson();
                     // This method will check the conflict and handle it.
                     // If everything was ok, it will save the data
-                    timeCheck.checkConflict(name, eventType, venue, capacity,startDate, endDate, startTime, endTime, department, person );
+                    check.checkConflict(name, eventType, venue, capacity,startDate, endDate, startTime, endTime, department, person );
                 }
                 // This will delete an event by its name
                 else if (orderNum.equals("2")) {
                     System.out.println("Type the name of the event you want to delete.");
                     String delName = input.next();
                     // This object will call delete to remove all info in dataSaving
-                    boolean operation = data.delete(delName, timeCheck);
+                    boolean operation = data.delete(delName, check);
                     // If the user entered an event that does not exist, an error will be thrown
                     if(!operation){
                         throw new Exception("There is no event with this name");
