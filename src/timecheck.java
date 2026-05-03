@@ -86,7 +86,7 @@ public class timecheck{
                     }
                 }
             }
-            // No conflict found — save to lists
+            // If there is no conflict, add values
             venues.add(venue);
             startDates.add(newStartDate);
             endDates.add(newEndDate);
