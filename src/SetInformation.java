@@ -1,9 +1,26 @@
 import java.util.Scanner;
 public class SetInformation {
-    protected Scanner input = new Scanner(System.in);
-    protected timecheck check = new timecheck();
-    protected Event event = new Event();
+    protected Scanner input;
+    protected timecheck check;
+    // We made this as a field since many methods use it
     protected boolean valid = false;
+
+    // A constructor to assign variables
+    // AI helped us in this
+    public SetInformation(Scanner input, timecheck check) {
+        this.input = input;
+        this.check = check;
+    }
+    public String setDepartment(){
+        System.out.println("Enter department name");
+        String department = input.next();
+        return department;
+    }
+    public String setPerson(){
+        System.out.println("Enter the responsible person");
+        String person = input.next();
+        return person;
+    }
     // This method is to set the name
     public String eventName(){
         String name;
@@ -16,6 +33,7 @@ public class SetInformation {
 
     // This method to set the type
     public String eventType(){
+        valid = false;
         System.out.print("Enter the Event type");
         System.out.print("Religious, Social, Sports, Academic.");
         String eventType = input.next();
@@ -30,21 +48,34 @@ public class SetInformation {
         }
         return eventType;
     }
-    //This method needs some work. It should return thhe venue as a String
+    //This method needs some work. It should return the venue as a String
     public String choosingVenue(String eventType){
         String venue;
         System.out.print("Select the desired venue");
+        Event event = new Event(input);
         venue = event.venueSelection(eventType);
         return venue;
     }
 
     // This method needs some work. It should return capacity as an int
-    public int capacityChecking(String venue){
+    public int capacityChecking(String venue, int maxCapacity){
         int capacity;
         //change the things in the print
-        System.out.print("Please enter the predected amount of comeers to the Event");
+        System.out.print("Please enter the predicted amount of comers to the Event");
         capacity = input.nextInt();
-        capacity = event.capacityHandling(capacity);
+        valid = false;
+        // This loop will check if the capacity is ok
+        while (!valid) {
+            if (capacity < 1) {
+                System.out.println("You can not enter a number less than one");
+                capacity = input.nextInt();
+            } else if (capacity > maxCapacity) {
+                System.out.println("Venue cannot handle this number!\n" + maxCapacity + " is the maximum number.");
+                capacity = input.nextInt();
+            } else {
+                valid = true;
+            }
+        }
         return capacity;
     }
 
@@ -53,6 +84,7 @@ public class SetInformation {
     public String Date(){
         String date;
         date = input.next();
+        valid = false;
         while(!valid){
             try{
                 if((date.length()<4)||(date.length()>5)){
@@ -113,6 +145,7 @@ public class SetInformation {
     // It "ONLY" checks if the time is valid(Hour:Minute)
     public String Time(){
         String time = input.next();
+        valid = false;
         while(!valid) {
             try {
                 if((time.length()!=4) && (time.length()!=5)){
@@ -126,10 +159,10 @@ public class SetInformation {
                 }
                 int Hour = Integer.parseInt(time.substring(0,2));
                 int Minute = Integer.parseInt(time.substring(3));
-                if((Hour < 0) || (Hour > 24)){
+                if((Hour < 0) || (Hour > 23)){
                     throw new Error("The hour is not valid");
                 }
-                if((Minute < 0) || (Minute > 60)){
+                if((Minute < 0) || (Minute > 59)){
                     throw new Error("The minute is not valid");
                 }
                 valid = true;

@@ -1,46 +1,52 @@
 
-import java.util.Random;
 public class SportArea extends Venue {
 
-        //randomizing room numbers
-        Random rand = new Random(1);
-        // Sport event venues
-        public void buildingOneVenue(){
-            //randomizing room numbers
-            for (int i = 0; i < 6; i++){
-                rooms.add("Rooms-" + rand.nextInt(500) + 1);
-                //Hashmap to link the building with rooms
-                map.put("Building 39", rooms);
-            }
-            //Randomizing room capacity
-            for(int i = 0;i < rooms.size();i++){
-                maxCapicty = rand.nextInt(150);
-                max.put(rooms.get(i) ,maxCapicty);
-            }
+        // Building 39
+        public String buildingOne(){
+            // since the rooms and max are shared in all subclasses, we need to clear them every time
+            rooms.clear();
+            max.clear();
+            rooms.add("Room-104");
+            rooms.add("Room-202");
+            max.put("Room-104", 30);
+            max.put("Room-202", 20);
             venue = "Building 39";
+            maxCapacity = getMaxCapacity();
+            showRooms();
             return venue;
         }
 
+        //building 11
         public String buildingTwo(){
-            for (int i = 0; i < 6; i++) {
-                rooms.add("Room-" + rand.nextInt(100) + 1);
-                map.put("Building 11", rooms);
-            }
+            rooms.clear();
+            max.clear();
 
-            for(int i = 0;i < rooms.size();i++){
-                maxCapicty = rand.nextInt(200);
-                max.put(rooms.get(i) ,maxCapicty);
-            }
+            rooms.add("Room-129");
+            rooms.add("Room-130");
+            rooms.add("Room-131");
+            rooms.add("Room-132");
+
+            max.put("Room-129", 30);
+            max.put("Room-130", 30);
+            max.put("Room-131", 40);
+            max.put("Room-132", 40);
             venue = "Building 11";
+            maxCapacity = getMaxCapacity();
+            showRooms();
             return venue;
 
         }
-
+        // Playing Ground
         public String buildingThree(){
-            rooms.add("The playing ground");
-            map.put("The stadium", rooms);
-            maxCapicty = rand.nextInt(1000) + 1;
-            venue = "The playing ground";
+            rooms.clear();
+            max.clear();
+
+            rooms.add("Playing Ground");
+            max.put("Playing Ground", 1000);
+
+            venue = "The Stadium";
+            maxCapacity = getMaxCapacity();
+            showRooms();
             return venue;
         }
 
