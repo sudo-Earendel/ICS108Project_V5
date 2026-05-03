@@ -23,17 +23,8 @@ public abstract class Venue {
             return highest;
         }
 
-        // Returns the capacity of a specific room
-        public int getRoomCapacity(String room) {
-            return max.get(room);
-        }
-
-        // Returns all available rooms
-        public ArrayList<String> getRooms() {
-            return rooms;
-        }
-
         // Shows all rooms and their capacities
+        // AI helped us in this
         public void showRooms() {
             System.out.println("Available rooms in " + venue + ":");
             for (String room : rooms) {
