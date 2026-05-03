@@ -11,7 +11,6 @@ public class SportArea extends Venue {
             max.put("Room-104", 30);
             max.put("Room-202", 20);
             venue = "Building 39";
-            venue = "Building 39";
             maxCapacity = getMaxCapacity();
             showRooms();
             return venue;

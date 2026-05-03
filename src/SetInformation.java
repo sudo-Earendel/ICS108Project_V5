@@ -11,6 +11,16 @@ public class SetInformation {
         this.input = input;
         this.check = check;
     }
+    public String setDepartment(){
+        System.out.println("Enter department name");
+        String department = input.next();
+        return department;
+    }
+    public String setPerson(){
+        System.out.println("Enter the responsible person");
+        String person = input.next();
+        return person;
+    }
     // This method is to set the name
     public String eventName(){
         String name;
@@ -135,6 +145,7 @@ public class SetInformation {
     // It "ONLY" checks if the time is valid(Hour:Minute)
     public String Time(){
         String time = input.next();
+        valid = false;
         while(!valid) {
             try {
                 if((time.length()!=4) && (time.length()!=5)){

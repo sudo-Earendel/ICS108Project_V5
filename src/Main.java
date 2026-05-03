@@ -9,7 +9,7 @@ public class Main {
         // The reason we put an argument is to make the input shared with all objects
         // and would prevent stealing from other classes with argument(input)
         // (AI helped us in this)
-        timecheck timeCheck = new timecheck(input);
+        timecheck timeCheck = new timecheck(input, data);
         // To prevent stealing inputs from other classes
         // (AI helped us in this)
         SetInformation set = new SetInformation(input, timeCheck);
@@ -23,6 +23,8 @@ public class Main {
         String endTime;
         String answer;
         String venue;
+        String department;
+        String person;
         System.out.println("Welcome to KFUPM Event Booking platform");
         //while loop so the program continue
         while(!endProgram) {
@@ -57,9 +59,11 @@ public class Main {
                     startTime = set.Time();
                     System.out.println("Enter ending time 1:05");
                     endTime = set.Time();
+                    department = set.setDepartment();
+                    person = set.setPerson();
                     // This method will check the conflict and handle it.
                     // If everything was ok, it will save the data
-                    timeCheck.checkConflict(name, eventType, venue, capacity,startDate, endDate, startTime, endTime );
+                    timeCheck.checkConflict(name, eventType, venue, capacity,startDate, endDate, startTime, endTime, department, person );
                 }
                 // This will delete an event by its name
                 else if (orderNum.equals("2")) {
@@ -81,7 +85,7 @@ public class Main {
                     throw new Exception("Enter a valid value");
                 }
                 System.out.print("Do u wish  to continue? (yes, no)");
-                answer = input.nextLine();
+                answer = input.next();
                 if (answer.equals("no")) {
                     endProgram = true;
                 }

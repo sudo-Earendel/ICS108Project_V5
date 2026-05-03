@@ -11,11 +11,12 @@ public class timecheck{
     protected ArrayList<String> venues = new ArrayList<>();
     protected Scanner input;
     protected SetInformation set;
-    protected dataSaving data = new dataSaving();
+    protected dataSaving data;
     protected boolean valid = false;
 
-    public timecheck(Scanner input) {
+    public timecheck(Scanner input, dataSaving data) {
         this.input = input;
+        this.data = data;
         // SetInformation created here with shared Scanner
         this.set = new SetInformation(input, this);
     }
@@ -23,10 +24,11 @@ public class timecheck{
     // The method is not ready yet, it checks the time correctly, but it does not know
     // if the day is in common or not
     // The method that will handle conflicts
-    public boolean checkConflict(String name, String eventType, String venue, int capacity,String startDate, String endDate, String startTime, String endTime){
-        String response = checkTime(venue, startTime, endTime, startTime, endTime);
+    public boolean checkConflict(String name, String eventType, String venue, int capacity,String startDate, String endDate, String startTime, String endTime, String department, String person){
+        String response = checkTime(venue, startDate, endDate, startTime, endTime);
         if(response.equals("valid")){
-            data.savings(name, eventType, venue, capacity, startDate, endDate, startTime, endTime);
+            data.savings(name, eventType, venue, capacity, startDate, endDate, startTime, endTime, department, person);
+            names.add(name);
             System.out.print("the venue now is booked");
             return true;
         }
@@ -36,13 +38,13 @@ public class timecheck{
             System.out.println("Enter new ending time");
             endTime = set.Time();
             // Recursion to check everytime
-            return checkConflict(name, eventType, venue, capacity, startDate, endDate, startTime, endTime);
+            return checkConflict(name, eventType, venue, capacity, startDate, endDate, startTime, endTime, department, person);
         }
         else if(response.equals("venue")){
             System.out.println("Enter a new venue");
             venue = set.choosingVenue(eventType);
             // Recursion to check everytime
-            return checkConflict(name, eventType, venue, capacity, startDate, endDate, startTime, endTime);
+            return checkConflict(name, eventType, venue, capacity, startDate, endDate, startTime, endTime, department, person);
         }
         // The method needs to check the date also, So it should have an else if to change date
 
@@ -119,11 +121,10 @@ public class timecheck{
         while(!valid) {
             try {
                 for (int i = 0; i<names.size(); i++ ){
-                    if(names.get(i)==name){
+                    if(names.get(i).equals(name)){
                         throw new Exception("Your name is used");
                     }
                 }
-                names.add(name);
                 valid = true;
             }
             catch(Exception except){
@@ -165,8 +166,10 @@ public class timecheck{
     // This method will delete the event data reserved user want to remove
     public void delete(String name){
         for(int i =0; i<names.size(); i++){
-            if(names.get(i).equals(name));{
+            if(names.get(i).equals(name)){
                 names.remove(i);
+                startDates.remove(i);
+                endDates.remove(i);
                 startTimes.remove(i);
                 endTimes.remove(i);
                 venues.remove(i);
