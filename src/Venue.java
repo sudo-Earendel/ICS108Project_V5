@@ -9,6 +9,7 @@ public abstract class Venue {
         //So I connect each room with a specif capacity
         protected HashMap< String, Integer> max = new HashMap<>();
         protected ArrayList<String> times;
+        protected String venue;
 
 
         }
