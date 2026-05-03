@@ -1,7 +1,6 @@
 //the class will be for any even that may occur in spaces like cafe , mosques , Student Mall etc...
 public class publicSpace extends Venue {
     public String typeOne(){
-        //here if-statement if the event is religious
         rooms.clear();
         max.clear();
         rooms.add("Campus Mosque");
